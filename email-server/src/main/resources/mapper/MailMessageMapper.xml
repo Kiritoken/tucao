@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eli.emailserver.dao.MailMessageMapper">
+  <resultMap id="BaseResultMap" type="com.eli.emailserver.entity.MailMessage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="to" jdbcType="VARCHAR" property="to" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="from" jdbcType="VARCHAR" property="from" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="template_name" jdbcType="VARCHAR" property="templateName" />
+    <result column="message_id" jdbcType="VARCHAR" property="messageId" />
+    <result column="routing_key" jdbcType="VARCHAR" property="routingKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, `to`, subject, `from`, message, template_name, message_id, routing_key
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mail_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mail_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.eli.emailserver.entity.MailMessage" useGeneratedKeys="true">
+    insert into mail_message (username, `to`, subject, 
+      `from`, message, template_name, 
+      message_id, routing_key)
+    values (#{username,jdbcType=VARCHAR}, #{to,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, 
+      #{from,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{templateName,jdbcType=VARCHAR}, 
+      #{messageId,jdbcType=VARCHAR}, #{routingKey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.eli.emailserver.entity.MailMessage" useGeneratedKeys="true">
+    insert into mail_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="to != null">
+        `to`,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="from != null">
+        `from`,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+      <if test="templateName != null">
+        template_name,
+      </if>
+      <if test="messageId != null">
+        message_id,
+      </if>
+      <if test="routingKey != null">
+        routing_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="to != null">
+        #{to,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null">
+        #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null">
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null">
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="routingKey != null">
+        #{routingKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eli.emailserver.entity.MailMessage">
+    update mail_message
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="to != null">
+        `to` = #{to,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null">
+        `from` = #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null">
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null">
+        message_id = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="routingKey != null">
+        routing_key = #{routingKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eli.emailserver.entity.MailMessage">
+    update mail_message
+    set username = #{username,jdbcType=VARCHAR},
+      `to` = #{to,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      `from` = #{from,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      template_name = #{templateName,jdbcType=VARCHAR},
+      message_id = #{messageId,jdbcType=VARCHAR},
+      routing_key = #{routingKey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

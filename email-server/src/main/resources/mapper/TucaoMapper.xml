@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eli.emailserver.dao.TucaoMapper">
+  <resultMap id="BaseResultMap" type="com.eli.emailserver.entity.Tucao">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="author_id" jdbcType="INTEGER" property="authorId" />
+    <result column="author_name" jdbcType="VARCHAR" property="authorName" />
+    <result column="author_avatar_url" jdbcType="VARCHAR" property="authorAvatarUrl" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+    <result column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="delete_status" jdbcType="VARCHAR" property="deleteStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, author_id, author_name, author_avatar_url, `label`, content, image_url, create_time, 
+    likes, comment_id, delete_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tucao
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getTucaoList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tucao
+  </select>
+
+  <select id="getTucaoListDescByTime" resultMap="BaseResultMap">
+    select
+    t.id, t.author_id, t.author_name, u.avatar_url as author_avatar_url, t.`label`, t.content, t.image_url, t.create_time,
+    t.likes, t.comment_id, t.delete_status
+    from tucao t,user u
+    where t.author_id = u.id and t.delete_status =1 and u.delete_status =1
+    order by create_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tucao
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.eli.emailserver.entity.Tucao" useGeneratedKeys="true">
+    insert into tucao (author_id, author_name, author_avatar_url, 
+      `label`, content, image_url, 
+      create_time, likes, comment_id, 
+      delete_status)
+    values (#{authorId,jdbcType=INTEGER}, #{authorName,jdbcType=VARCHAR}, #{authorAvatarUrl,jdbcType=VARCHAR}, 
+      #{label,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{likes,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, 
+      #{deleteStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.eli.emailserver.entity.Tucao" useGeneratedKeys="true">
+    insert into tucao
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="authorName != null">
+        author_name,
+      </if>
+      <if test="authorAvatarUrl != null">
+        author_avatar_url,
+      </if>
+      <if test="label != null">
+        `label`,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="imageUrl != null">
+        image_url,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="likes != null">
+        likes,
+      </if>
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="deleteStatus != null">
+        delete_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="authorName != null">
+        #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorAvatarUrl != null">
+        #{authorAvatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="likes != null">
+        #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="commentId != null">
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null">
+        #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eli.emailserver.entity.Tucao">
+    update tucao
+    <set>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="authorName != null">
+        author_name = #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorAvatarUrl != null">
+        author_avatar_url = #{authorAvatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        `label` = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="likes != null">
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="commentId != null">
+        comment_id = #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eli.emailserver.entity.Tucao">
+    update tucao
+    set author_id = #{authorId,jdbcType=INTEGER},
+      author_name = #{authorName,jdbcType=VARCHAR},
+      author_avatar_url = #{authorAvatarUrl,jdbcType=VARCHAR},
+      `label` = #{label,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      likes = #{likes,jdbcType=INTEGER},
+      comment_id = #{commentId,jdbcType=INTEGER},
+      delete_status = #{deleteStatus,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

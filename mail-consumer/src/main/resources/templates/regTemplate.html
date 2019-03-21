@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+</head>
+<body>
+你好<span th:text="${userName}"></span>，感谢您的注册，这是一封验证邮件，请点击下面的链接完成注册，感谢您的支持！<br/>
+<a href="#" th:href="@{http://120.79.185.240:8081/login/activate(userName=${userName},code=${code})}">激活账号</a>
+</body>
+</html>
