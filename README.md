@@ -1,7 +1,7 @@
 # weapp-tucao
 
 前后端分离的吐槽WebApp<br/>
-欢迎star [github](https://github.com/Kiritoken/tucao-webapp.git)
+欢迎star [github](https://github.com/Kiritoken/tucao.git)
 
 
 ![](image/home.png)
