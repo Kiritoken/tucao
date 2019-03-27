@@ -31,7 +31,7 @@ public class RetryMessage {
    private BrokerMessageLogMapper brokerMessageLogMapper;
 
 
-    @Scheduled(initialDelay = 5000, fixedDelay = 20000)
+   // @Scheduled(initialDelay = 5000, fixedDelay = 20000)
     public void reSend(){
         //抽取消息状态为0且已经超时的消息集合
         List<BrokerMessageLog> list = brokerMessageLogMapper.query4StatusAndTimeoutMessage();

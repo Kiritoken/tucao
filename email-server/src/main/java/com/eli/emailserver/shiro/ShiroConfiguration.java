@@ -56,6 +56,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/register", "anon");
         filterChainDefinitionMap.put("/login/logout", "anon");
         filterChainDefinitionMap.put("/login/activate", "anon");
+        filterChainDefinitionMap.put("/push", "anon");
         filterChainDefinitionMap.put("/tucao/list", "anon");
         filterChainDefinitionMap.put("/error", "anon");
         filterChainDefinitionMap.put("/**", "authc");
